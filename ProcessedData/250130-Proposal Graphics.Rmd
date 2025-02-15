@@ -1,0 +1,50 @@
+---
+title: "250130-Proposal Graphics"
+output: pdf_document
+date: "2025-01-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2); library(dplyr); library(tidyverse)
+filePath = "C:/Users/86139/Desktop/FishTetherExperiment/ProcessedData/EDA_data.csv"
+proc_data = read.csv(filePath, header = TRUE)
+
+tsSize <- (proc_data %>% group_by(fishNum) %>% count())$n
+tsIndex <- map(tsSize, .f = function(x) seq(1:x)) %>% reduce(append)
+proc_data$tsIndex <- tsIndex
+```
+
+```{r}
+## First, for each of the species, plot their TS against time in grey lines, plot their average values at each time point
+p <- ggplot(data = proc_data)
+freqCols = colnames(proc_data)[3:428]
+
+# Loop over the y_columns to add a geom_line layer for each one
+for (col in freqCols) {
+  p <- p + geom_line(aes_string(x = tsIndex, y=col, col = "species"), linewidth=0.3, alpha=0.2)  # Use aes_string for variable column names
+}
+
+# Finalize the plot
+p <- p + 
+  theme_bw() +
+  labs(title="Spaghetti Plot of TS",
+       x="Time",
+       y="TS")
+
+print(p)
+```
+
+```{r}
+tsAvg <- proc_data %>% group_by(species, tsIndex) %>% mean(na.rm = T)
+
+tsSd <- apply(proc_data[,3:428], MARGIN = 1, sd)
+
+smryTbl <- cbind(proc_data[,c("fishNum", "species", "tsIndex")], "avg" = tsAvg, "sd" = tsSD)
+
+ggplot(data=smryTbl, eas(x = tsIndex, y = avg, group = species))+
+  geom_line()
+```
