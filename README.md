@@ -1,8 +1,24 @@
 # FishTetherExperiment
 
 ## Project Description
-Data and workflow associated with broadband acoustics classification of labelled and tethered fish.
+Each year, the government of Ontario spends over 70 million dollars on fish species management. Developing machine learning algorithms that automatically classify fish using hydroacoustic data can help Ontario save time and resources. While a previous study led by Jessica Leivesley has applied recurrent neural network to classify Lake Trout and Small Mouth Bass with a prediction accuracy of 80%, it did not address classification of more than two species, and it relies on species labels train the model, which is costly to obtain. The Fish Tethering project aims to develop an unsupervised learning approach that classifies fish primarily based on broadband hydroacoustic data. To fill the research gap, this project will experiment Principal Component Analysis to identify characteristic frequencies, attempt and evaluate unsupervised classification such as UMAP and clustering, and compare unsupervised learning results with the benchmark: the Recurrent Neural Net.
 
+
+## Folder Structure
+Folder | Description
+---------- | --------------------------------------------------
+[Analyis_Scripts](Analysis_Scripts) | data analysis scripts
+[Data](Data) | contains the raw acoustic data and Echoview processing scripts
+[ExploratoryAnalysis](ExploratoryAnalysis) | contains Jupiter Notebooks and scripts to explore and filter the data, and Python scripts that builds statistical Models
+[ExploratoryAnalysis/FishTrack-EDA-Tool](ExploratoryAnalysis/FishTrack-EDA-Tool) | home folder for shiny app
+[ProcessedData](ProcessedData) | contains data that has been generated from data in *Data*, including training, validation, test split, summary statistics from models.
+[NonPingData](NonPingData) | contains fish bio data
+[ExportedFigures](ExportedFigures) | Figures generated from analysis scripts
+WritingSections | Report writing sections
+
+
+-----------------------------------------------------------------------
+Below are readme from Jessica Levesley's Team
 ## Clone this repo
 Instructions for installing GIT are here: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
